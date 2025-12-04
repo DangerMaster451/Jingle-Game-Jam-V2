@@ -74,6 +74,7 @@ while running:
             if enemy.get_distance_to_object(projectile) < (projectile.hitboxRadius + enemy.hitboxRadius):
                 if enemy.invincibility_frames <= 0:
                     game.handle_enemy_damage(enemy, projectile.damage)
+                    game.apply_sweeping_edge(enemy)
             if enemy.invincibility_frames > 0:
                 enemy.invincibility_frames -= 1 * dt       
 

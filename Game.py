@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Upgrade import Upgrade, Default, Thorns
+from Upgrade import Upgrade, Default, Thorns, SweepingEdge
 from Pickup import Pickup
 from Enemy import Enemy
 from Player import Player
@@ -19,7 +19,7 @@ class Game:
         self.projectiles:list[Projectile] = []
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
-        self.upgrades:list[Upgrade] = [Default(), Thorns()]
+        self.upgrades:list[Upgrade] = [Default(), SweepingEdge()]
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
@@ -77,6 +77,12 @@ class Game:
             for enemy in self.enemies:
                 if enemy.get_distance_to_object(self.player) < Thorns.threshold:
                     self.handle_enemy_damage(enemy, Thorns.damage)
+
+    def apply_sweeping_edge(self, hit_enemy:Enemy):
+        if any(isinstance(obj, SweepingEdge) for obj in self.upgrades):
+            for enemy in self.enemies:
+                if enemy.get_distance_to_object(hit_enemy) < SweepingEdge.threshold and enemy != hit_enemy:
+                    self.handle_enemy_damage(enemy, SweepingEdge.damage)
 
     def spawn_pickup(self, x:float, y:float):
         self.pickups.append(Pickup(x, y))

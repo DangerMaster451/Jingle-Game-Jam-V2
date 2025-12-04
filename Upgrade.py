@@ -29,4 +29,10 @@ class Thorns(Upgrade):
     damage = 15
     def __init__(self):
         super().__init__()
+
+class SweepingEdge(Upgrade):
+    threshold = 100
+    damage = 15
+    def __init__(self):
+        super().__init__()
         
