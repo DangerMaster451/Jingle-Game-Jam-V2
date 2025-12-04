@@ -10,6 +10,7 @@ running = True
 dt = 0
 
 while running:
+    #Events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -35,18 +36,26 @@ while running:
 
     # Player
     game.player.render(screen)
-    game.player.move_toward(mouseX, mouseY, dt)
+    game.player.move_toward(mouseX, mouseY, game.player.speed, dt)
+
+    #print(game.player.dash_cooldown)
 
     if game.player.health <= 0:
         game.game_over()
         running = False
+
+    if pygame.mouse.get_pressed()[0]:
+        game.player.dash(mouseX, mouseY, dt)
+    
+    if game.player.dash_cooldown > 0:
+        game.player.dash_cooldown -= 1 * dt
 
     # Enemies
     game.spawn_enemies(10, 800)
 
     for enemy in game.enemies:
         enemy.render(screen)
-        enemy.move_toward(game.player.x, game.player.y, dt)
+        enemy.move_toward(game.player.x, game.player.y, enemy.speed, dt)
 
         if game.player.invincibility_frames <= 0:
             if enemy.get_distance_to_object(game.player) < (game.player.hitboxRadius + enemy.hitboxRadius):

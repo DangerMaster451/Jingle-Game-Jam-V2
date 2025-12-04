@@ -22,10 +22,10 @@ class GameObject():
     def load_image(self, path:str, size:tuple[int,int]) -> pygame.Surface:
         return pygame.transform.scale(pygame.image.load(path), size)
     
-    def move_toward(self, x:float, y:float, dt:float) -> None:
+    def move_toward(self, x:float, y:float, speed:float, dt:float) -> None:
         self.direction = math.atan2((y - self.y), (x - self.x)) + math.pi/2
-        self.x += math.sin(self.direction) * self.speed * dt
-        self.y -= math.cos(self.direction) * self.speed * dt
+        self.x += math.sin(self.direction) * speed * dt
+        self.y -= math.cos(self.direction) * speed * dt
 
     def get_distance_to_object(self, object:GameObject) -> float:
         return math.sqrt((object.y - self.y)**2 + (object.x - self.x)**2)
