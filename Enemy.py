@@ -5,8 +5,12 @@ import pygame
 
 class Enemy(GameObject):
     def __init__(self, x:float, y:float):
-        super().__init__(x, y, 0, 75, 20, "Assets/Evil Snowman.png", (100,100))
+        super().__init__()
+        self.x = x
+        self.y = y
+        self.speed = 75
         self.health = 30
+        self.hitboxRadius = 15
         self.max_health = 30
         self.damage = 25
         self.health_bar = Healthbar(25, 5, self)

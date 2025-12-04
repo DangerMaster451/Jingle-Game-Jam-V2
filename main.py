@@ -38,17 +38,19 @@ while running:
     game.player.render(screen)
     game.player.move_toward(mouseX, mouseY, game.player.speed, dt)
 
-    #print(game.player.dash_cooldown)
-
     if game.player.health <= 0:
         game.game_over()
         running = False
 
-    if pygame.mouse.get_pressed()[0]:
-        game.player.dash(mouseX, mouseY, dt)
+    mouseDown = pygame.mouse.get_pressed()[0]
+    game.player.dash(mouseX, mouseY, mouseDown, dt)
     
     if game.player.dash_cooldown > 0:
         game.player.dash_cooldown -= 1 * dt
+
+
+    if game.player.dash_length <= 0:
+        game.player.dashing = False
 
     # Enemies
     game.spawn_enemies(10, 800)

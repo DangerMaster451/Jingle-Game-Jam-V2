@@ -14,9 +14,9 @@ class Upgrade():
 
 class Default(Upgrade):
     def __init__(self):
-        cool_down = 1
-        self.timer:float = cool_down
-        super().__init__(cool_down)
+        self.cool_down = 1
+        self.timer:float = self.cool_down
+        super().__init__(self.cool_down)
 
     def action(self, player:Player) -> Snowball:
         return Snowball(player.x, player.y, player.direction)

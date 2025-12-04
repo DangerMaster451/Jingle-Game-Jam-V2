@@ -5,8 +5,16 @@ import pygame
 
 class Projectile(GameObject):
     def __init__(self, x:float, y:float, direction:float, damage:float, speed:int, hitboxRaidus:int, imagePath:str, imageSize:tuple[int,int]) -> None:
+        super().__init__()
         self.damage = damage
-        super().__init__(x, y, direction, speed, hitboxRaidus, imagePath, imageSize)
+        self.x = x
+        self.y = y
+        self.direction = direction
+        self.damage = damage
+        self.speed = speed
+        self.hitboxRadius = hitboxRaidus
+        self.imagePath = imagePath
+        self.imageSize = imageSize        
 
 class Snowball(Projectile):
     def __init__(self, x:float, y:float, direction:float) -> None:

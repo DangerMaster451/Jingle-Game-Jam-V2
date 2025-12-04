@@ -3,15 +3,12 @@ import pygame
 import math
 
 class GameObject():
-    def __init__(self, x:float, y:float, direction:float, speed:int, hitboxRadius:int, imagePath:str, imageSize:tuple[int,int]) -> None:
-        self.x = x
-        self.y = y
-        self.direction = direction
-        self.speed = speed
-        self.hitboxRadius = hitboxRadius
-        self.image = self.load_image(imagePath, imageSize)
-        self.health:float = 0
-        self.max_health:float = 0
+    def __init__(self) -> None:
+        self.x:float
+        self.y:float
+        self.hitboxRadius:float
+        self.image:pygame.Surface
+        self.speed:float
 
     def update(self, dt:float) -> None:
         pass
