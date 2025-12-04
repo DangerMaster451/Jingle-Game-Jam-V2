@@ -1,13 +1,16 @@
 from Game import Game
 import pygame
 
-game = Game()
+
 
 pygame.init()
+pygame.mixer.init()
 screen = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
 running = True
 dt = 0
+
+game = Game()
 
 while running:
     #Events
@@ -31,6 +34,7 @@ while running:
         if pickup.get_distance_to_object(game.player) < (pickup.hitboxRadius + game.player.hitboxRadius):
             game.score += 5
             game.pickups.remove(pickup)
+            game.pick_up_sound.play()
         if pickup.lifetime <= 0:
             game.pickups.remove(pickup)
 
@@ -43,11 +47,10 @@ while running:
         running = False
 
     mouseDown = pygame.mouse.get_pressed()[0]
-    game.player.dash(mouseX, mouseY, mouseDown, dt)
+    game.player.dash(mouseX, mouseY, mouseDown, game.dash_sound, dt)
     
     if game.player.dash_cooldown > 0:
         game.player.dash_cooldown -= 1 * dt
-
 
     if game.player.dash_length <= 0:
         game.player.dashing = False
@@ -62,6 +65,7 @@ while running:
         if game.player.invincibility_frames <= 0:
             if enemy.get_distance_to_object(game.player) < (game.player.hitboxRadius + enemy.hitboxRadius):
                 game.player.take_damage(enemy.damage)
+                game.player_hurt_sound.play()
                 game.spawnBloodCloud(game.player.x, game.player.y, 25, 40, 0, 50)
         else:
             game.player.invincibility_frames -= 1 * dt
@@ -70,6 +74,7 @@ while running:
             if enemy.get_distance_to_object(projectile) < (projectile.hitboxRadius + enemy.hitboxRadius):
                 if enemy.invincibility_frames <= 0:
                     enemy.take_damage(projectile.damage)
+                    game.enemy_hurt_sound.play()
                     game.spawnIceBloodCloud(enemy.x, enemy.y, 25, 40, 0, 50)
                     if enemy.health <= 0:
                         game.enemies.remove(enemy)

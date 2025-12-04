@@ -33,12 +33,13 @@ class Player(GameObject):
         else:
             pygame.draw.circle(screen, "cornsilk1", (self.x, self.y), self.size)
 
-    def dash(self, x:float, y:float, mouseDown:bool, dt:float):
+    def dash(self, x:float, y:float, mouseDown:bool, sound:pygame.mixer.Sound, dt:float):
         if self.dash_cooldown <= 0:
             self.dash_length = self.max_dash_length
 
         if self.dash_length == self.max_dash_length and mouseDown:
             self.dashing = True
+            sound.play()
             self.invincibility_frames = 7
             self.dash_cooldown = self.dash_max_cooldown
             self.dash_length = self.max_dash_length
