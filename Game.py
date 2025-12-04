@@ -5,6 +5,7 @@ from Enemy import Enemy
 from Player import Player
 from Particles import Particle, Blood, IceBlood
 from Projectiles import Projectile, Snowball
+from Healthbar import Healthbar
 
 import math
 import random
@@ -17,13 +18,17 @@ class Game:
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
         self.upgrades:list[Upgrade] = [Default()]
+        self.health_bars:list[Healthbar] = [self.player.healthbar]
 
     def spawn_enemies(self, max_enemies:int, spawn_radius:int) -> None:
         if len(self.enemies) < max_enemies:
             direction = random.randint(0,360)
             x = math.sin(math.radians(direction)) * spawn_radius + self.player.x
             y = math.cos(math.radians(direction)) * spawn_radius + self.player.y
-            self.enemies.append(Enemy(x, y))
+            enemy = Enemy(x, y)
+
+            self.enemies.append(enemy)
+            self.health_bars.append(enemy.health_bar)
 
     def spawnBloodCloud(self, spawnX:float, spawnY:float, radius_min:int, radius_max:int, spread:int, count:int) -> None:
         radius = random.randint(radius_min, radius_max)

@@ -9,11 +9,10 @@ class Player(GameObject):
        self.health:float = 100
        self.max_health:float = 100
        self.invincibility_frames:float = 0
-       self.healthbar = Healthbar(self)
+       self.healthbar = Healthbar(50, 10, self)
 
-    def take_damage(self, value:float, dt:float):
+    def take_damage(self, value:float):
         if self.invincibility_frames <= 0:
-            print(self.health)
             self.health -= value
             self.invincibility_frames:float = 10
 
