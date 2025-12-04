@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Upgrade import Upgrade, Default
+from Upgrade import Upgrade, Default, Thorns
 from Pickup import Pickup
 from Enemy import Enemy
 from Player import Player
@@ -19,7 +19,7 @@ class Game:
         self.projectiles:list[Projectile] = []
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
-        self.upgrades:list[Upgrade] = [Default()]
+        self.upgrades:list[Upgrade] = [Default(), Thorns()]
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
@@ -38,6 +38,15 @@ class Game:
 
             self.enemies.append(enemy)
             self.health_bars.append(enemy.health_bar)
+
+    def handle_enemy_damage(self, enemy:Enemy, damage:float):
+        enemy.take_damage(damage)
+        self.enemy_hurt_sound.play()
+        self.spawnIceBloodCloud(enemy.x, enemy.y, 25, 40, 0, 50)
+        if enemy.health <= 0:
+            self.enemies.remove(enemy)
+            self.health_bars.remove(enemy.health_bar)
+            self.spawn_pickup(enemy.x, enemy.y)
 
     def spawnBloodCloud(self, spawnX:float, spawnY:float, radius_min:int, radius_max:int, spread:int, count:int) -> None:
         radius = random.randint(radius_min, radius_max)
@@ -63,10 +72,14 @@ class Game:
         if type(upgrade) == Default:
             self.projectiles.append(upgrade.action(self.player))
 
+    def apply_thorns(self):
+        if any(isinstance(obj, Thorns) for obj in self.upgrades):
+            for enemy in self.enemies:
+                if enemy.get_distance_to_object(self.player) < Thorns.threshold:
+                    self.handle_enemy_damage(enemy, Thorns.damage)
+
     def spawn_pickup(self, x:float, y:float):
         self.pickups.append(Pickup(x, y))
 
     def game_over(self):
         print("Game over lol")
-
-

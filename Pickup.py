@@ -13,11 +13,9 @@ class Pickup(GameObject):
         self.lifetime = lifetime
         self.color:tuple[int,int,int] = (0,0,0)
         
-    
     def render(self, screen:pygame.Surface) -> None:
         pygame.draw.circle(screen, self.color, (self.x, self.y), 10)
         
-
     def update_color(self, dt:float) -> None:
         green = round(220 + math.sin(self.lifetime/10) * 35)
         self.color = (36, green, 122)

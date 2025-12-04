@@ -1,8 +1,6 @@
 from Game import Game
 import pygame
 
-
-
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -66,21 +64,16 @@ while running:
             if enemy.get_distance_to_object(game.player) < (game.player.hitboxRadius + enemy.hitboxRadius):
                 game.player.take_damage(enemy.damage)
                 game.player_hurt_sound.play()
+                game.apply_thorns()
                 game.spawnBloodCloud(game.player.x, game.player.y, 25, 40, 0, 50)
+                
         else:
             game.player.invincibility_frames -= 1 * dt
 
         for projectile in game.projectiles:
             if enemy.get_distance_to_object(projectile) < (projectile.hitboxRadius + enemy.hitboxRadius):
                 if enemy.invincibility_frames <= 0:
-                    enemy.take_damage(projectile.damage)
-                    game.enemy_hurt_sound.play()
-                    game.spawnIceBloodCloud(enemy.x, enemy.y, 25, 40, 0, 50)
-                    if enemy.health <= 0:
-                        game.enemies.remove(enemy)
-                        game.health_bars.remove(enemy.health_bar)
-                        game.spawn_pickup(enemy.x, enemy.y)
-            
+                    game.handle_enemy_damage(enemy, projectile.damage)
             if enemy.invincibility_frames > 0:
                 enemy.invincibility_frames -= 1 * dt       
 
