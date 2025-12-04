@@ -6,6 +6,7 @@ from Player import Player
 from Particles import Particle, Blood, IceBlood
 from Projectiles import Projectile, Snowball
 from Healthbar import Healthbar
+from Scorebar import Scorebar
 
 import math
 import random
@@ -19,6 +20,8 @@ class Game:
         self.particles:list[Particle] = []
         self.upgrades:list[Upgrade] = [Default()]
         self.health_bars:list[Healthbar] = [self.player.healthbar]
+        self.score_bar:Scorebar = Scorebar()
+        self.score = 0
 
     def spawn_enemies(self, max_enemies:int, spawn_radius:int) -> None:
         if len(self.enemies) < max_enemies:

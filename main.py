@@ -23,11 +23,12 @@ while running:
         if particle.lifetime < 0:
             game.particles.remove(particle)
 
+    # Pickups
     for pickup in game.pickups:
         pickup.render(screen)
         pickup.update_color(dt)
         if pickup.get_distance_to_object(game.player) < (pickup.hitboxRadius + game.player.hitboxRadius):
-            # Add to score
+            game.score += 5
             game.pickups.remove(pickup)
         if pickup.lifetime <= 0:
             game.pickups.remove(pickup)
@@ -80,9 +81,10 @@ while running:
                 game.handle_upgrade_actions(upgrade)
 
     # UI Elements
-
     for healthbar in game.health_bars:
         healthbar.render(screen)
+
+    game.score_bar.render(game.score, 100, screen)
 
     pygame.display.flip()
 
