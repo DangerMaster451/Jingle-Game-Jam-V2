@@ -52,4 +52,7 @@ class Game:
     def spawn_pickup(self, x:float, y:float):
         self.pickups.append(Pickup(x, y))
 
+    def game_over(self):
+        print("Game over lol")
+
 

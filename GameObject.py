@@ -10,6 +10,8 @@ class GameObject():
         self.speed = speed
         self.hitboxRadius = hitboxRadius
         self.image = self.load_image(imagePath, imageSize)
+        self.health:float = 0
+        self.max_health:float = 0
 
     def update(self, dt:float) -> None:
         pass

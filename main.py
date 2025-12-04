@@ -36,6 +36,10 @@ while running:
     game.player.render(screen)
     game.player.move_toward(mouseX, mouseY, dt)
 
+    if game.player.health <= 0:
+        game.game_over()
+        running = False
+
     # Enemies
     game.spawn_enemies(10, 800)
 
@@ -69,6 +73,10 @@ while running:
     for upgrade in game.upgrades:
         if upgrade.check_cool_down(dt):
                 game.handle_upgrade_actions(upgrade)
+
+    # UI Elements
+
+    game.player.healthbar.render(screen)
 
     pygame.display.flip()
 
