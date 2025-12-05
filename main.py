@@ -76,7 +76,17 @@ while running:
                     game.handle_enemy_damage(enemy, projectile.damage)
                     game.apply_sweeping_edge(enemy)
             if enemy.invincibility_frames > 0:
-                enemy.invincibility_frames -= 1 * dt       
+                enemy.invincibility_frames -= 1 * dt  
+
+    # Ghosts
+    for ghost in game.ghosts:
+        ghost.move_toward(ghost.target.x, ghost.target.y, ghost.speed, dt)
+        ghost.render(screen)
+
+        if ghost.get_distance_to_object(ghost.target) < 10:
+            game.ghosts.remove(ghost)
+            game.handle_enemy_damage(ghost.target, 1000)
+
 
     # Projectiles
     for projectile in game.projectiles:

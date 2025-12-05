@@ -7,6 +7,7 @@ from Particles import Particle, Blood, IceBlood
 from Projectiles import Projectile, Snowball
 from Healthbar import Healthbar
 from Scorebar import Scorebar
+from Ghost import Ghost
 
 import math
 import random
@@ -16,6 +17,7 @@ class Game:
     def __init__(self) -> None:
         self.player = Player(500, 500)
         self.enemies:list[Enemy] = []
+        self.ghosts:list[Ghost] = []
         self.projectiles:list[Projectile] = []
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
@@ -23,6 +25,8 @@ class Game:
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
+
+        self.ghost_spawn_chance = 10
 
         self.player_hurt_sound = pygame.mixer.Sound("Assets/player_damage.wav")
         self.enemy_hurt_sound = pygame.mixer.Sound("Assets/ice_hit.mp3")
@@ -47,6 +51,7 @@ class Game:
             self.enemies.remove(enemy)
             self.health_bars.remove(enemy.health_bar)
             self.spawn_pickup(enemy.x, enemy.y)
+            self.handle_ghost_spawning(enemy.x, enemy.y)
 
     def spawnBloodCloud(self, spawnX:float, spawnY:float, radius_min:int, radius_max:int, spread:int, count:int) -> None:
         radius = random.randint(radius_min, radius_max)
@@ -86,6 +91,11 @@ class Game:
 
     def spawn_pickup(self, x:float, y:float):
         self.pickups.append(Pickup(x, y))
+
+    def handle_ghost_spawning(self, x:float, y:float):
+        if random.randint(1, self.ghost_spawn_chance) == 1:
+            enemy = self.enemies[random.randint(0, len(self.enemies)-1)]
+            self.ghosts.append(Ghost(x, y, enemy))
 
     def game_over(self):
         print("Game over lol")
