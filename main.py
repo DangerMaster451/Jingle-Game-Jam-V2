@@ -85,7 +85,8 @@ while running:
 
         if ghost.get_distance_to_object(ghost.target) < 10:
             game.ghosts.remove(ghost)
-            game.handle_enemy_damage(ghost.target, 1000)
+            if ghost.target in game.enemies:
+                game.handle_enemy_damage(ghost.target, 1000)
 
 
     # Projectiles

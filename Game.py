@@ -26,7 +26,7 @@ class Game:
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
 
-        self.ghost_spawn_chance = 10
+        self.ghost_spawn_chance = 1
 
         self.player_hurt_sound = pygame.mixer.Sound("Assets/player_damage.wav")
         self.enemy_hurt_sound = pygame.mixer.Sound("Assets/ice_hit.mp3")
