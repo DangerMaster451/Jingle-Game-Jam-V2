@@ -102,5 +102,21 @@ class Game:
             self.ghosts.append(Ghost(x, y, enemy))
             self.ghost_spawn_sound.play()
 
+    def handle_player_animation(self, mouseX:int, mouseY:int, dt:float):
+        if self.player.animation_frames <= 0:
+            if self.player.image == self.player.frames[0]:
+                self.player.current_frame = 1
+            else:
+                self.player.current_frame = 0
+
+            self.player.animation_frames = self.player.max_animation_frames
+        else:
+            self.player.animation_frames -= 1 * dt
+
+        if self.player.x > mouseX:
+            self.player.image = pygame.transform.flip(self.player.frames[self.player.current_frame], True, False)
+        else:
+            self.player.image = self.player.frames[self.player.current_frame]
+
     def game_over(self):
         print("Game over lol")

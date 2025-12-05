@@ -14,7 +14,6 @@ class GameObject():
         pass
 
     def render(self, screen:pygame.Surface) -> None:
-        
         imageSize = self.image.get_size()
         pygame.Surface.blit(screen, self.image, (self.x - imageSize[0]/2, self.y - imageSize[1]/2))
         #pygame.draw.circle(screen, "red", (self.x, self.y), self.hitboxRadius)

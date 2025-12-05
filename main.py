@@ -42,6 +42,7 @@ while running:
 
     # Player
     game.player.render(screen)
+    game.handle_player_animation(mouseX, mouseY, dt)
     game.player.move_toward(mouseX, mouseY, game.player.speed, dt)
 
     if game.player.health <= 0:
