@@ -19,7 +19,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("black")
+    screen.fill("azure1")
     mouseX, mouseY = pygame.mouse.get_pos()
     window_size = pygame.display.get_window_size()
 
@@ -32,7 +32,7 @@ while running:
     # Pickups
     for pickup in game.pickups:
         pickup.render(screen)
-        pickup.update_color(dt)
+        #pickup.update_color(dt)
         if pickup.get_distance_to_object(game.player) < (pickup.hitboxRadius + game.player.hitboxRadius):
             game.score += 5
             game.pickups.remove(pickup)

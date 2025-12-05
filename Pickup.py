@@ -8,13 +8,13 @@ class Pickup(GameObject):
         self.x = x
         self.y = y
         self.hitboxRadius = 15
-        self.imagePath = "Assets/Player.png"
-        self.imageSize = (15,15)
+        self.image = self.load_image("Assets/Pickup.png", (30,30))
         self.lifetime = lifetime
         self.color:tuple[int,int,int] = (0,0,0)
         
-    def render(self, screen:pygame.Surface) -> None:
-        pygame.draw.circle(screen, self.color, (self.x, self.y), 10)
+        
+    #def render(self, screen:pygame.Surface) -> None:
+    #    pygame.draw.circle(screen, self.color, (self.x, self.y), 10)
         
     def update_color(self, dt:float) -> None:
         green = round(220 + math.sin(self.lifetime/10) * 35)
