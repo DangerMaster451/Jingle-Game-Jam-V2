@@ -69,7 +69,7 @@ while running:
                 game.player.take_damage(enemy.damage)
                 game.player_hurt_sound.play()
                 game.apply_thorns()
-                game.spawnBloodCloud(game.player.x, game.player.y, 25, 40, 0, 50)
+                game.spawnBloodCloud(game.player.x, game.player.y, 50, 75, 0, 300)
                 
         else:
             game.player.invincibility_frames -= 1 * dt
@@ -96,7 +96,7 @@ while running:
     for projectile in game.projectiles:
         projectile.render(screen)
         projectile.update(dt)
-        if projectile.get_distance_to_object(game.player) > 3000:
+        if projectile.get_distance_to_object(game.player) > 2000:
             game.projectiles.remove(projectile)
 
     # Upgrades

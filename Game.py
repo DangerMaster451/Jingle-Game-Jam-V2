@@ -50,7 +50,7 @@ class Game:
     def handle_enemy_damage(self, enemy:Enemy, damage:float):
         enemy.take_damage(damage)
         self.enemy_hurt_sound.play()
-        self.spawnIceBloodCloud(enemy.x, enemy.y, 25, 40, 0, 50)
+        self.spawnIceBloodCloud(enemy.x, enemy.y, 50, 75, 0, 150)
         if enemy.health <= 0:
             self.enemies.remove(enemy)
             self.health_bars.remove(enemy.health_bar)

@@ -7,7 +7,7 @@ class Pickup(GameObject):
         super().__init__()
         self.x = x
         self.y = y
-        self.hitboxRadius = 15
+        self.hitboxRadius = 50
         self.image = self.load_image("Assets/Pickup.png", (30,30))
         self.lifetime = lifetime
         self.color:tuple[int,int,int] = (0,0,0)
