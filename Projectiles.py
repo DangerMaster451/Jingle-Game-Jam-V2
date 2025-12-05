@@ -18,7 +18,7 @@ class Projectile(GameObject):
 
 class Snowball(Projectile):
     def __init__(self, x:float, y:float, direction:float) -> None:
-        super().__init__(x, y, direction, 30, 300, 15, "Assets/Snowball.png", (30,30))
+        super().__init__(x, y, direction, 30, 500, 15, "Assets/Snowball.png", (30,30))
 
     def update(self, dt:float) -> None:
         self.x += math.sin(self.direction) * self.speed * dt

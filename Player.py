@@ -14,6 +14,7 @@ class Player(GameObject):
        self.hitboxRadius = 30
        self.speed = 125
        self.invincibility_frames:float = 0
+       self.max_invincibility_frames:float = 25
        self.dash_cooldown:float = 0
        self.dash_max_cooldown:float = 2
        self.max_dash_length:float = 0.5
@@ -21,11 +22,10 @@ class Player(GameObject):
        self.healthbar = Healthbar(50, 10, self)
        self.dashing:bool = False
        
-
     def take_damage(self, value:float):
         if self.invincibility_frames <= 0:
             self.health -= value
-            self.invincibility_frames:float = 10
+            self.invincibility_frames:float = self.max_invincibility_frames
 
     def render(self, screen:pygame.Surface):
         if self.dashing:

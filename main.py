@@ -3,12 +3,15 @@ import pygame
 
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
+pygame.display.set_caption("Attack of the Deranged Mutant Killer Monster Snow Goons")
 clock = pygame.time.Clock()
 running = True
 dt = 0
 
 game = Game()
+
+game.background_music.play(-1)
 
 while running:
     #Events
@@ -18,6 +21,7 @@ while running:
 
     screen.fill("black")
     mouseX, mouseY = pygame.mouse.get_pos()
+    window_size = pygame.display.get_window_size()
 
     # Particles
     for particle in game.particles:
@@ -54,7 +58,7 @@ while running:
         game.player.dashing = False
 
     # Enemies
-    game.spawn_enemies(10, 800)
+    game.spawn_enemies(50, window_size[0] + 50, window_size)
 
     for enemy in game.enemies:
         enemy.render(screen)

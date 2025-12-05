@@ -9,7 +9,7 @@ class Ghost(GameObject):
         self.x = x
         self.y = y
         self.target = target
-        self.speed = 90
+        self.speed = 130
         super().__init__()
 
     def render(self, screen:pygame.Surface):
