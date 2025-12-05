@@ -10,7 +10,7 @@ class Upgrade():
 
 class Default(Upgrade):
     def __init__(self):
-        self.cool_down:float = 1
+        self.cool_down:float = 0.8
         self.timer:float = self.cool_down
         super().__init__()
 

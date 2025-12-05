@@ -58,7 +58,7 @@ while running:
         game.player.dashing = False
 
     # Enemies
-    game.spawn_enemies(50, window_size[0] + 50, window_size)
+    game.spawn_enemies(50, window_size[0] + 50, (window_size[0]/2, window_size[1]/2))
 
     for enemy in game.enemies:
         enemy.render(screen)
@@ -92,12 +92,11 @@ while running:
             if ghost.target in game.enemies:
                 game.handle_enemy_damage(ghost.target, 1000)
 
-
     # Projectiles
     for projectile in game.projectiles:
         projectile.render(screen)
         projectile.update(dt)
-        if projectile.get_distance_to_object(game.player) > 1000:
+        if projectile.get_distance_to_object(game.player) > 3000:
             game.projectiles.remove(projectile)
 
     # Upgrades

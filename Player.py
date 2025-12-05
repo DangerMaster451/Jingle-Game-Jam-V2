@@ -11,7 +11,7 @@ class Player(GameObject):
        self.max_health:float = 100
        self.size = 30
        self.dash_size = 20
-       self.hitboxRadius = 30
+       self.hitboxRadius = 50
        self.speed = 125
        self.invincibility_frames:float = 0
        self.max_invincibility_frames:float = 25
@@ -19,19 +19,21 @@ class Player(GameObject):
        self.dash_max_cooldown:float = 2
        self.max_dash_length:float = 0.5
        self.dash_length:float = self.max_dash_length
-       self.healthbar = Healthbar(50, 10, self)
+       self.healthbar = Healthbar(75, 25, 135, self)
        self.dashing:bool = False
+
+       self.image = self.load_image("Assets/Girl.png", (32*4,48*4))
        
     def take_damage(self, value:float):
         if self.invincibility_frames <= 0:
             self.health -= value
             self.invincibility_frames:float = self.max_invincibility_frames
 
-    def render(self, screen:pygame.Surface):
-        if self.dashing:
-            pygame.draw.circle(screen, "cornsilk1", (self.x, self.y), self.dash_size)
-        else:
-            pygame.draw.circle(screen, "cornsilk1", (self.x, self.y), self.size)
+    #def render(self, screen:pygame.Surface):
+    #    if self.dashing:
+    #        pygame.draw.circle(screen, "cornsilk1", (self.x, self.y), self.dash_size)
+    #    else:
+    #        pygame.draw.circle(screen, "cornsilk1", (self.x, self.y), self.size)
 
     def dash(self, x:float, y:float, mouseDown:bool, sound:pygame.mixer.Sound, dt:float):
         if self.dash_cooldown <= 0:

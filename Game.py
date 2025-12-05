@@ -36,7 +36,7 @@ class Game:
         self.dash_sound = pygame.mixer.Sound("Assets/dash.mp3")
         self.ghost_spawn_sound = pygame.mixer.Sound("Assets/ghost_spawn.mp3")
 
-    def spawn_enemies(self, max_enemies:int, spawn_radius:int, center:tuple[int,int]) -> None:
+    def spawn_enemies(self, max_enemies:int, spawn_radius:int, center:tuple[float,float]) -> None:
         if random.randint(1, self.enemy_spawn_chance) == 1:
             if len(self.enemies) < max_enemies:
                 direction = random.randint(0,360)
