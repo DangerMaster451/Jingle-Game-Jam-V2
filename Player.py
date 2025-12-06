@@ -7,7 +7,7 @@ class Player(GameObject):
        super().__init__()
        self.x = x
        self.y = y
-       self.health:float = 100
+       self.health:float = 5
        self.max_health:float = 100
        self.size = 30
        self.dash_size = 20

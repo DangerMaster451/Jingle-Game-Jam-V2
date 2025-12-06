@@ -141,3 +141,109 @@ class Game:
 
     def game_over(self):
         print("Game over lol")
+
+    def game_loop(self, screen:pygame.Surface, keys, dt:float):
+        mouseX, mouseY = pygame.mouse.get_pos()
+        window_size = pygame.display.get_window_size()
+
+        # Particles
+        for particle in self.particles:
+            particle.render(screen)    
+            if particle.lifetime < 0:
+                self.particles.remove(particle)
+
+        # Pickups
+        for pickup in self.pickups:
+            pickup.render(screen)
+            if pickup.get_distance_to_object(self.player) < (pickup.hitboxRadius + self.player.hitboxRadius):
+                self.score += 5
+                self.pickups.remove(pickup)
+                self.pick_up_sound.play()
+            if pickup.lifetime <= 0:
+                self.pickups.remove(pickup)
+
+        # Player
+        self.player.render(screen)
+        self.handle_player_animation(mouseX, mouseY, dt)
+        self.player.move_toward(mouseX, mouseY, self.player.speed, dt)
+
+        mouseDown = pygame.mouse.get_pressed()[0]
+        self.player.dash(mouseX, mouseY, mouseDown, self.dash_sound, dt)
+        
+        if self.player.dash_cooldown > 0:
+            self.player.dash_cooldown -= 1 * dt
+
+        if self.player.dash_length <= 0:
+            self.player.dashing = False
+
+        # Enemies
+        if not self.disable_spawning:
+            self.spawn_enemies(10, round(window_size[0]/2), (window_size[0]/2, window_size[1]/2))
+
+        for enemy in self.enemies:
+            enemy.render(screen)
+
+            enemy.move_toward(self.player.x, self.player.y, enemy.speed, dt)
+
+            if self.player.invincibility_frames <= 0:
+                if enemy.get_distance_to_object(self.player) < (self.player.hitboxRadius + enemy.hitboxRadius):
+                    self.player.take_damage(enemy.damage)
+                    self.player_hurt_sound.play()
+                    self.apply_thorns()
+                    self.spawnBloodCloud(self.player.x, self.player.y, 50, 75, 0, 300)
+                    
+            else:
+                self.player.invincibility_frames -= 1 * dt
+
+            for projectile in self.projectiles:
+                if enemy.get_distance_to_object(projectile) < (projectile.hitboxRadius + enemy.hitboxRadius):
+                    if enemy.invincibility_frames <= 0:
+                        self.handle_enemy_damage(enemy, projectile.damage)
+                        self.apply_sweeping_edge(enemy)
+                if enemy.invincibility_frames > 0:
+                    enemy.invincibility_frames -= 1 * dt  
+
+        # Ghosts
+        for ghost in self.ghosts:
+            ghost.move_toward(ghost.target.x, ghost.target.y, ghost.speed, dt)
+            ghost.render(screen)
+
+            if ghost.get_distance_to_object(ghost.target) < 10:
+                self.ghosts.remove(ghost)
+                if ghost.target in self.enemies:
+                    self.handle_enemy_damage(ghost.target, 1000)
+
+        # Projectiles
+        for projectile in self.projectiles:
+            projectile.render(screen)
+            projectile.update(dt)
+            if projectile.get_distance_to_object(self.player) > 2000:
+                self.projectiles.remove(projectile)
+
+        # Upgrades
+        for upgrade in self.upgrades:
+            if upgrade.check_cool_down(dt):
+                    self.handle_upgrade_actions(upgrade)
+
+        # Upgrade Pickups
+        self.handle_upgrade_spawning(window_size)
+
+        for upgrade_pickup in self.upgrade_pickups:
+            upgrade_pickup.render(screen)
+
+            if upgrade_pickup.get_distance_to_object(self.player) <= (self.player.hitboxRadius + upgrade_pickup.height):
+                upgrade_pickup.render_textbox(screen)
+                if keys[pygame.K_SPACE]:
+                    self.upgrades.append(upgrade_pickup.upgrade)
+                    self.disable_spawning = False
+                    self.score = 0
+                    self.upgrade_pickups = []
+                    self.pickups = []
+
+        # UI Elements
+        for healthbar in self.health_bars:
+            healthbar.render(screen)
+
+        self.score_bar.render(self.score, self.required_score, screen)
+        if self.score >= self.required_score:
+            self.disable_spawning = True
