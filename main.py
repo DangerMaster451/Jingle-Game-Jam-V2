@@ -32,7 +32,6 @@ while running:
     # Pickups
     for pickup in game.pickups:
         pickup.render(screen)
-        #pickup.update_color(dt)
         if pickup.get_distance_to_object(game.player) < (pickup.hitboxRadius + game.player.hitboxRadius):
             game.score += 5
             game.pickups.remove(pickup)
@@ -59,10 +58,12 @@ while running:
         game.player.dashing = False
 
     # Enemies
-    game.spawn_enemies(50, window_size[0] + 50, (window_size[0]/2, window_size[1]/2))
+    if not game.disable_spawning:
+        game.spawn_enemies(30, round(window_size[0]/2), (window_size[0]/2, window_size[1]/2))
 
     for enemy in game.enemies:
         enemy.render(screen)
+
         enemy.move_toward(game.player.x, game.player.y, enemy.speed, dt)
 
         if game.player.invincibility_frames <= 0:
@@ -109,7 +110,9 @@ while running:
     for healthbar in game.health_bars:
         healthbar.render(screen)
 
-    game.score_bar.render(game.score, 100, screen)
+    game.score_bar.render(game.score, game.required_score, screen)
+    if game.score >= game.required_score:
+        game.disable_spawning = True
 
     pygame.display.flip()
 

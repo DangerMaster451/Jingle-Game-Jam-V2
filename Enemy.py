@@ -12,7 +12,7 @@ class Enemy(GameObject):
         self.health = 30
         self.hitboxRadius = 60
         self.max_health = 30
-        self.damage = 25
+        self.damage = 10
         self.health_bar = Healthbar(25, 5, 50, self)
         self.invincibility_frames:float = 0
         self.image = self.load_image("Assets/evil_snowman.png", (100,100))

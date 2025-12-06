@@ -25,6 +25,9 @@ class Game:
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
+        self.required_score = 100
+
+        self.disable_spawning:bool = False
 
         self.ghost_spawn_chance = 7
         self.enemy_spawn_chance = 10
@@ -97,14 +100,14 @@ class Game:
         self.pickups.append(Pickup(x, y))
 
     def handle_ghost_spawning(self, x:float, y:float):
-        if random.randint(1, self.ghost_spawn_chance) == 1:
+        if random.randint(1, self.ghost_spawn_chance) == 1 and len(self.enemies) != 0:
             enemy = self.enemies[random.randint(0, len(self.enemies)-1)]
             self.ghosts.append(Ghost(x, y, enemy))
             self.ghost_spawn_sound.play()
 
     def handle_player_animation(self, mouseX:int, mouseY:int, dt:float):
         if self.player.animation_frames <= 0:
-            if self.player.image == self.player.frames[0]:
+            if self.player.current_frame == 0:
                 self.player.current_frame = 1
             else:
                 self.player.current_frame = 0
