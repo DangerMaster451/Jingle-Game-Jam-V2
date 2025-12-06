@@ -2,6 +2,7 @@ from Projectiles import Projectile, Snowball
 from Player import Player
 
 class Upgrade():
+    image_path:str
     def __init__(self):
         pass
 
@@ -9,6 +10,7 @@ class Upgrade():
         return False
 
 class Default(Upgrade):
+    image_path = "Assets/evil_snowman.png"
     def __init__(self):
         self.cool_down:float = 0.8
         self.timer:float = self.cool_down
@@ -27,12 +29,19 @@ class Default(Upgrade):
 class Thorns(Upgrade):
     threshold = 100
     damage = 15
+    image_path = "Assets/Thorns.png"
     def __init__(self):
         super().__init__()
+        
+        
+        
 
 class SweepingEdge(Upgrade):
     threshold = 100
     damage = 15
+    image_path = "Assets/Sweeping Edge.png"
     def __init__(self):
         super().__init__()
+        
+        
         

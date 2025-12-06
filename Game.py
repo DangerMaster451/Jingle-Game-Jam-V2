@@ -27,7 +27,7 @@ class Game:
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
-        self.required_score = 100
+        self.required_score = 25
 
         self.disable_spawning:bool = False
 
@@ -133,15 +133,11 @@ class Game:
             return None
         
         self.win_wave_sound.play()
-        upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Default())
-        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Default())
+        upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Thorns())
+        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, SweepingEdge())
 
         self.upgrade_pickups.append(upgrade1)
         self.upgrade_pickups.append(upgrade2)
-
-    def reset_wave(self):
-        self.disable_spawning = False
-        self.upgrade_pickups = []
 
     def game_over(self):
         print("Game over lol")

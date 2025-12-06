@@ -11,7 +11,7 @@ dt = 0
 
 game = Game()
 
-game.background_music.play(-1)
+#game.background_music.play(-1)
 
 while running:
     #Events
