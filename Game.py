@@ -40,6 +40,7 @@ class Game:
         self.pick_up_sound = pygame.mixer.Sound("Assets/pick_up.mp3")
         self.dash_sound = pygame.mixer.Sound("Assets/dash.mp3")
         self.ghost_spawn_sound = pygame.mixer.Sound("Assets/ghost_spawn.mp3")
+        self.win_wave_sound = pygame.mixer.Sound("Assets/win wave.mp3")
 
     def spawn_enemies(self, max_enemies:int, spawn_radius:int, center:tuple[float,float]) -> None:
         if random.randint(1, self.enemy_spawn_chance) == 1:
@@ -131,14 +132,16 @@ class Game:
         if len(self.upgrade_pickups) != 0:
             return None
         
-        print("Spawing Upgrade Pickups")
-        print(self.disable_spawning)
+        self.win_wave_sound.play()
         upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Default())
         upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Default())
 
         self.upgrade_pickups.append(upgrade1)
         self.upgrade_pickups.append(upgrade2)
 
+    def reset_wave(self):
+        self.disable_spawning = False
+        self.upgrade_pickups = []
 
     def game_over(self):
         print("Game over lol")

@@ -11,7 +11,7 @@ dt = 0
 
 game = Game()
 
-#game.background_music.play(-1)
+game.background_music.play(-1)
 
 while running:
     #Events
@@ -109,9 +109,14 @@ while running:
     # Upgrade Pickups
     game.handle_upgrade_spawning(window_size)
 
-    for upgrade in game.upgrade_pickups:
-            upgrade.render(screen)
+    for upgrade_pickup in game.upgrade_pickups:
+        upgrade_pickup.render(screen)
 
+        if upgrade_pickup.get_distance_to_object(game.player) <= (game.player.hitboxRadius + upgrade_pickup.height):
+            game.upgrades.append(upgrade_pickup.upgrade)
+            game.disable_spawning = False
+            game.score = 0
+            game.upgrade_pickups = []
 
     # UI Elements
     for healthbar in game.health_bars:
