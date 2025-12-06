@@ -3,7 +3,9 @@ from Player import Player
 
 class Upgrade():
     image_path:str
+    
     def __init__(self):
+        self.description:str
         pass
 
     def check_cool_down(self, dt:float) -> bool:
@@ -31,6 +33,7 @@ class Thorns(Upgrade):
     damage = 15
     image_path = "Assets/Thorns.png"
     def __init__(self):
+        self.description = "Thorns\nDeals damage to surrounding enemies\n when the player is damaged\n**SPACE to Select**"
         super().__init__()
         
         
@@ -41,6 +44,7 @@ class SweepingEdge(Upgrade):
     damage = 15
     image_path = "Assets/Sweeping Edge.png"
     def __init__(self):
+        self.description = "Sweeping Edge\nDeals damage to surrounding\n enemies that get damaged\n**SPACE to Select**"
         super().__init__()
         
         
