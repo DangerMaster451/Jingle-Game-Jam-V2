@@ -21,6 +21,7 @@ while running:
 
     screen.fill("azure1")
     mouseX, mouseY = pygame.mouse.get_pos()
+    keys = pygame.key.get_pressed()
     window_size = pygame.display.get_window_size()
 
     # Particles
@@ -59,7 +60,7 @@ while running:
 
     # Enemies
     if not game.disable_spawning:
-        game.spawn_enemies(30, round(window_size[0]/2), (window_size[0]/2, window_size[1]/2))
+        game.spawn_enemies(10, round(window_size[0]/2), (window_size[0]/2, window_size[1]/2))
 
     for enemy in game.enemies:
         enemy.render(screen)
@@ -113,10 +114,12 @@ while running:
         upgrade_pickup.render(screen)
 
         if upgrade_pickup.get_distance_to_object(game.player) <= (game.player.hitboxRadius + upgrade_pickup.height):
-            game.upgrades.append(upgrade_pickup.upgrade)
-            game.disable_spawning = False
-            game.score = 0
-            game.upgrade_pickups = []
+            upgrade_pickup.render_textbox(screen)
+            if keys[pygame.K_SPACE]:
+                game.upgrades.append(upgrade_pickup.upgrade)
+                game.disable_spawning = False
+                game.score = 0
+                game.upgrade_pickups = []
 
     # UI Elements
     for healthbar in game.health_bars:
