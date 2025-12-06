@@ -20,4 +20,4 @@ class Enemy(GameObject):
     def take_damage(self, value:float):
         if self.invincibility_frames <= 0:
             self.health -= value
-            self.invincibility_frames:float = 1     
+            self.invincibility_frames:float = 0.2     

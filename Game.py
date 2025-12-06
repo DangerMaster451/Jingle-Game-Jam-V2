@@ -22,7 +22,7 @@ class Game:
         self.projectiles:list[Projectile] = []
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
-        self.upgrades:list[Upgrade] = [Default(), SweepingEdge()]
+        self.upgrades:list[Upgrade] = [Default()]
         self.upgrade_pickups:list[UpgradePickup] = []
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()

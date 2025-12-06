@@ -29,23 +29,17 @@ class Default(Upgrade):
         return False
 
 class Thorns(Upgrade):
-    threshold = 100
-    damage = 15
+    threshold = 250
+    damage = 30
     image_path = "Assets/Thorns.png"
     def __init__(self):
         self.description = "Thorns\nDeals damage to surrounding enemies\n when the player is damaged\n**SPACE to Select**"
         super().__init__()
-        
-        
-        
 
 class SweepingEdge(Upgrade):
-    threshold = 100
-    damage = 15
+    threshold = 300
+    damage = 30
     image_path = "Assets/Sweeping Edge.png"
     def __init__(self):
         self.description = "Sweeping Edge\nDeals damage to surrounding\n enemies that get damaged\n**SPACE to Select**"
         super().__init__()
-        
-        
-        
