@@ -11,7 +11,7 @@ dt = 0
 
 game = Game()
 
-game.background_music.play(-1)
+#game.background_music.play(-1)
 
 while running:
     #Events
@@ -105,6 +105,13 @@ while running:
     for upgrade in game.upgrades:
         if upgrade.check_cool_down(dt):
                 game.handle_upgrade_actions(upgrade)
+
+    # Upgrade Pickups
+    game.handle_upgrade_spawning(window_size)
+
+    for upgrade in game.upgrade_pickups:
+            upgrade.render(screen)
+
 
     # UI Elements
     for healthbar in game.health_bars:

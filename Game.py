@@ -1,5 +1,6 @@
 from __future__ import annotations
 from Upgrade import Upgrade, Default, Thorns, SweepingEdge
+from UpgradePickup import UpgradePickup
 from Pickup import Pickup
 from Enemy import Enemy
 from Player import Player
@@ -22,6 +23,7 @@ class Game:
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
         self.upgrades:list[Upgrade] = [Default(), SweepingEdge()]
+        self.upgrade_pickups:list[UpgradePickup] = []
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
@@ -120,6 +122,23 @@ class Game:
             self.player.image = pygame.transform.flip(self.player.frames[self.player.current_frame], True, False)
         else:
             self.player.image = self.player.frames[self.player.current_frame]
+
+    def handle_upgrade_spawning(self, screen_size:tuple[int,int]) -> None:
+        if not self.disable_spawning:
+            return None
+        if len(self.enemies) != 0:
+            return None
+        if len(self.upgrade_pickups) != 0:
+            return None
+        
+        print("Spawing Upgrade Pickups")
+        print(self.disable_spawning)
+        upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Default())
+        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Default())
+
+        self.upgrade_pickups.append(upgrade1)
+        self.upgrade_pickups.append(upgrade2)
+
 
     def game_over(self):
         print("Game over lol")
