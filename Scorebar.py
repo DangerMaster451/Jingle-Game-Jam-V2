@@ -1,10 +1,10 @@
 import pygame
 
 class Scorebar():
-    def __init__(self) -> None:
-        self.width = 200
-        self.height = 50
-        self.padding = 20
+    def __init__(self, screen_size:tuple[int,int]) -> None:
+        self.width = screen_size[0]/10
+        self.height = screen_size[1]/35
+        self.padding = screen_size[0]/100
 
     def render(self, score:float, required_score:float, screen:pygame.Surface):
         score_width = (score / required_score) * self.width

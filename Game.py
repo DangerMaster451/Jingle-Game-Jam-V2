@@ -15,7 +15,7 @@ import random
 import pygame
 
 class Game:
-    def __init__(self) -> None:
+    def __init__(self, screen_size:tuple[int,int]) -> None:
         self.player = Player(500, 500)
         self.enemies:list[Enemy] = []
         self.ghosts:list[Ghost] = []
@@ -25,7 +25,7 @@ class Game:
         self.upgrades:list[Upgrade] = [Default()]
         self.upgrade_pickups:list[UpgradePickup] = []
         self.health_bars:list[Healthbar] = [self.player.healthbar]
-        self.score_bar:Scorebar = Scorebar()
+        self.score_bar:Scorebar = Scorebar(screen_size)
         self.score = 0
         self.required_score = 25
         self.wave = 1

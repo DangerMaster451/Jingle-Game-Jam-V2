@@ -12,7 +12,7 @@ startMenu = True
 game_over = False
 dt = 0
 
-game = Game()
+game = Game(pygame.display.get_window_size())
 
 game.background_music.play(-1)
 
@@ -95,7 +95,7 @@ while running or game_over:
             game_over = False
             running = True
 
-            game = Game()
+            game = Game(pygame.display.get_window_size())
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
