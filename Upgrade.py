@@ -55,3 +55,9 @@ class Speed(Upgrade):
     def __init__(self):
         self.description = "Speed Boost\nIncreases Player Speed by 50%\n**SPACE to Select**"
         super().__init__()
+
+class Snowball_Upgrade(Upgrade):
+    image_path = "Assets/More Snowballs.png"
+    def __init__(self):
+        self.description = "Snowball Upgrade\nIncreases number of snowballs thrown by 50%\n**Space to Select**"
+        super().__init__()
