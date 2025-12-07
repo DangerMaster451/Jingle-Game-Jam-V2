@@ -16,9 +16,12 @@ game = Game(pygame.display.get_window_size())
 
 game.background_music.play(-1)
 
-font = pygame.font.Font("Assets/Metal Glass.otf", 32)
-title = font.render("Attack of the Deranged Mutant Killer Monster Snow Goons", True, "black")
-next = font.render("Press SPACE to Continue", True, "black")
+big_font = pygame.font.Font("Assets/Metal Glass.otf", 48)
+small_font = pygame.font.Font("Assets/Metal Glass.otf", 32)
+title = big_font.render("Attack of the Deranged Mutant Killer Monster Snow Goons", True, "black")
+next = small_font.render("Press SPACE to Continue", True, "cornflowerblue")
+instructions = small_font.render("Mouse to control direction, click to dash!", True, "black")
+ghost_explanation = small_font.render("Ghosts sometimes spawn after a snowman is defeated. They are here to help!", True, "black")
 width = 100
 height = 75
 
@@ -36,9 +39,15 @@ while startMenu:
 
     window_size = pygame.display.get_window_size()
     text_rect = title.get_rect(center=(window_size[0]/2, window_size[1]/2-150))
-    next_rect = next.get_rect(center=(window_size[0]/2, window_size[1]/2))
+    instructions_rect = instructions.get_rect(center=(window_size[0]/2, window_size[1]/2))
+    ghost_explanation_rect = ghost_explanation.get_rect(center=(window_size[0]/2, window_size[1]/2+150))
+    next_rect = next.get_rect(center=(window_size[0]/2, window_size[1]/2+300))
+
     screen.blit(title, text_rect)
+    screen.blit(instructions, instructions_rect)
+    screen.blit(ghost_explanation, ghost_explanation_rect)
     screen.blit(next, next_rect)
+    
 
     if keys[pygame.K_SPACE]:
         startMenu = False
@@ -84,7 +93,7 @@ while running or game_over:
         screen.fill("azure1")
 
         window_size = pygame.display.get_window_size()
-        game_over_text = font.render("You Died!!", True, "black")
+        game_over_text = big_font.render("You Died!!", True, "black")
         game_over_rect = game_over_text.get_rect(center=(window_size[0]/2, window_size[1]/2-150))
         next_rect = next.get_rect(center=(window_size[0]/2, window_size[1]/2))
         screen.blit(game_over_text, game_over_rect)
