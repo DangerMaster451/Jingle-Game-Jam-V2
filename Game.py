@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Upgrade import Upgrade, Default, Thorns, SweepingEdge
+from Upgrade import Upgrade, Default, Thorns, SweepingEdge, Healing
 from UpgradePickup import UpgradePickup
 from Pickup import Pickup
 from Enemy import Enemy
@@ -138,7 +138,7 @@ class Game:
             return None
         
         self.win_wave_sound.play()
-        upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Thorns())
+        upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Healing())
         upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, SweepingEdge())
 
         self.upgrade_pickups.append(upgrade1)
@@ -235,6 +235,13 @@ class Game:
         for upgrade in self.upgrades:
             if upgrade.check_cool_down(dt):
                     self.handle_upgrade_actions(upgrade)
+            if type(upgrade) == Healing:
+                if self.player.health < 70:
+                    self.player.health += 30
+                else:
+                    self.player.health = 100
+                self.upgrades.remove(upgrade)
+
 
         # Upgrade Pickups
         self.handle_upgrade_spawning(window_size)

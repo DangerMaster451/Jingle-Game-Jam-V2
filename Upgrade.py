@@ -46,3 +46,5 @@ class SweepingEdge(Upgrade):
 
 class Healing(Upgrade):
     image_path = "Assets/Health Pickup.png"
+    def __init__(self):
+        self.description = "Instant Health\nRestores Health by 30%\n**SPACE to Select**"
