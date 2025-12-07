@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Upgrade import Upgrade, Default, Thorns, SweepingEdge, Healing
+from Upgrade import Upgrade, Default, Thorns, SweepingEdge, Healing, Speed
 from UpgradePickup import UpgradePickup
 from Pickup import Pickup
 from Enemy import Enemy
@@ -139,7 +139,7 @@ class Game:
         
         self.win_wave_sound.play()
         upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Healing())
-        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, SweepingEdge())
+        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Speed())
 
         self.upgrade_pickups.append(upgrade1)
         self.upgrade_pickups.append(upgrade2)
@@ -240,6 +240,10 @@ class Game:
                     self.player.health += 30
                 else:
                     self.player.health = 100
+                self.upgrades.remove(upgrade)
+
+            if type(upgrade) == Speed:
+                self.player.speed = self.player.speed * 1.50
                 self.upgrades.remove(upgrade)
 
 

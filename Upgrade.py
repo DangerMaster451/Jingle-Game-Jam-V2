@@ -48,3 +48,10 @@ class Healing(Upgrade):
     image_path = "Assets/Health Pickup.png"
     def __init__(self):
         self.description = "Instant Health\nRestores Health by 30%\n**SPACE to Select**"
+        super().__init__()
+
+class Speed(Upgrade):
+    image_path = "Assets/Speed Pickup.png"
+    def __init__(self):
+        self.description = "Speed Boost\nIncreases Player Speed by 50%\n**SPACE to Select**"
+        super().__init__()
