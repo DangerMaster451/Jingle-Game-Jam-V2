@@ -7,27 +7,26 @@ class Player(GameObject):
        super().__init__()
        self.x = x
        self.y = y
-       self.health:float = 5
+       self.health:float = 100
        self.max_health:float = 100
        self.size = 30
        self.dash_size = 20
-       self.hitboxRadius = 50
+       self.hitboxRadius = 25
        self.speed = 125
        self.invincibility_frames:float = 0
        self.max_invincibility_frames:float = 25
        self.animation_frames:float = 0
        self.max_animation_frames: float = 0.8
        self.dash_cooldown:float = 0
-       self.dash_max_cooldown:float = 2
+       self.dash_max_cooldown:float = 1
        self.max_dash_length:float = 0.5
        self.dash_length:float = self.max_dash_length
        self.healthbar = Healthbar(75, 25, 135, self)
        self.dashing:bool = False
 
-       self.frames = [self.load_image("Assets/Girl.png", (32*4,48*4)), self.load_image("Assets/Girl 2.png", (32*4, 48*4))]
+       self.frames = [self.load_image("Assets/Girl.png", (32*2,48*2)), self.load_image("Assets/Girl 2.png", (32*2, 48*2))]
        self.current_frame = 0
        self.image = self.frames[self.current_frame]
-       
        
     def take_damage(self, value:float):
         if self.invincibility_frames <= 0:
@@ -35,12 +34,9 @@ class Player(GameObject):
             self.invincibility_frames:float = self.max_invincibility_frames
 
     def render(self, screen:pygame.Surface):
-        if self.dashing:
-            pygame.draw.circle(screen, "cornsilk1", (self.x, self.y), self.dash_size)
-        else:
-            imageSize = self.image.get_size()
-            pygame.Surface.blit(screen, self.image, (self.x - imageSize[0]/2, self.y - imageSize[1]/2))
-
+        imageSize = self.image.get_size()
+        pygame.Surface.blit(screen, self.image, (self.x - imageSize[0]/2, self.y - imageSize[1]/2))
+            
     def dash(self, x:float, y:float, mouseDown:bool, sound:pygame.mixer.Sound, dt:float):
         if self.dash_cooldown <= 0:
             self.dash_length = self.max_dash_length

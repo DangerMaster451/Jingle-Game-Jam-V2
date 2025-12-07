@@ -3,7 +3,7 @@ import pygame
 
 pygame.init()
 pygame.mixer.init()
-screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
+screen = pygame.display.set_mode((1280*1.5, 720*1.5))
 pygame.display.set_caption("Attack of the Deranged Mutant Killer Monster Snow Goons")
 clock = pygame.time.Clock()
 running = True
@@ -15,7 +15,6 @@ dt = 0
 game = Game()
 
 game.background_music.play(-1)
-
 
 font = pygame.font.Font("Assets/Metal Glass.otf", 32)
 title = font.render("Attack of the Deranged Mutant Killer Monster Snow Goons", True, "black")

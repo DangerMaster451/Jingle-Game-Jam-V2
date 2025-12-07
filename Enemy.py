@@ -12,10 +12,10 @@ class Enemy(GameObject):
         self.health = 30
         self.hitboxRadius = 60
         self.max_health = 30
-        self.damage = 10
+        self.damage = 15
         self.health_bar = Healthbar(25, 5, 50, self)
         self.invincibility_frames:float = 0
-        self.image = self.load_image("Assets/evil_snowman.png", (100,100))
+        self.image = self.load_image("Assets/evil_snowman.png", (65,65))
 
     def take_damage(self, value:float):
         if self.invincibility_frames <= 0:

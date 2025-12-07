@@ -28,6 +28,7 @@ class Game:
         self.score_bar:Scorebar = Scorebar()
         self.score = 0
         self.required_score = 25
+        self.wave = 1
 
         self.disable_spawning:bool = False
 
@@ -140,7 +141,7 @@ class Game:
         self.upgrade_pickups.append(upgrade2)
 
     def game_over(self):
-        print("Game over lol")
+        pass
 
     def game_loop(self, screen:pygame.Surface, keys, dt:float):
         mouseX, mouseY = pygame.mouse.get_pos()
@@ -156,11 +157,17 @@ class Game:
         for pickup in self.pickups:
             pickup.render(screen)
             if pickup.get_distance_to_object(self.player) < (pickup.hitboxRadius + self.player.hitboxRadius):
-                self.score += 5
+                self.score += 1
                 self.pickups.remove(pickup)
                 self.pick_up_sound.play()
             if pickup.lifetime <= 0:
                 self.pickups.remove(pickup)
+
+        self.required_score = self.get_required_score(self.wave)
+        if self.wave < 10:
+            self.enemy_spawn_chance = 11 - self.wave
+        else:
+            self.enemy_spawn_chance = 1
 
         # Player
         self.player.render(screen)
@@ -178,7 +185,7 @@ class Game:
 
         # Enemies
         if not self.disable_spawning:
-            self.spawn_enemies(10, round(window_size[0]/2), (window_size[0]/2, window_size[1]/2))
+            self.spawn_enemies(self.get_total_enemies(self.wave), round(window_size[0]/2), (window_size[0]/2, window_size[1]/2))
 
         for enemy in self.enemies:
             enemy.render(screen)
@@ -239,6 +246,7 @@ class Game:
                     self.score = 0
                     self.upgrade_pickups = []
                     self.pickups = []
+                    self.wave += 1
 
         # UI Elements
         for healthbar in self.health_bars:
@@ -247,3 +255,10 @@ class Game:
         self.score_bar.render(self.score, self.required_score, screen)
         if self.score >= self.required_score:
             self.disable_spawning = True
+
+    def get_total_enemies(self, wave:int) -> int:
+        return round(0.5 * wave*wave) + 30
+    
+    def get_required_score(self, wave:int) -> int:
+        return round(0.4*wave*wave) + 25
+    

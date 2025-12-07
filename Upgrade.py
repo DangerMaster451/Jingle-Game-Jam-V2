@@ -14,7 +14,7 @@ class Upgrade():
 class Default(Upgrade):
     image_path = "Assets/evil_snowman.png"
     def __init__(self):
-        self.cool_down:float = 0.8
+        self.cool_down:float = 0.5
         self.timer:float = self.cool_down
         super().__init__()
 
@@ -29,7 +29,7 @@ class Default(Upgrade):
         return False
 
 class Thorns(Upgrade):
-    threshold = 250
+    threshold = 100
     damage = 30
     image_path = "Assets/Thorns.png"
     def __init__(self):
@@ -37,7 +37,7 @@ class Thorns(Upgrade):
         super().__init__()
 
 class SweepingEdge(Upgrade):
-    threshold = 300
+    threshold = 100
     damage = 30
     image_path = "Assets/Sweeping Edge.png"
     def __init__(self):
