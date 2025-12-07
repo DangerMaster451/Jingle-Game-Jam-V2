@@ -36,7 +36,7 @@ class Game:
         self.ghost_spawn_chance = 7
         self.enemy_spawn_chance = 10
 
-        self.background_music = pygame.mixer.Sound("Assets/Light Jazz.mp3")
+        self.background_music = pygame.mixer.Sound("Assets/Light Jazz (loop).wav")
         self.player_hurt_sound = pygame.mixer.Sound("Assets/grunt.mp3")
         self.enemy_hurt_sound = pygame.mixer.Sound("Assets/ice_hit.mp3")
         self.pick_up_sound = pygame.mixer.Sound("Assets/pick_up.mp3")
