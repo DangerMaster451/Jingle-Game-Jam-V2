@@ -31,7 +31,7 @@ class Default(Upgrade):
 class Thorns(Upgrade):
     threshold = 100
     damage = 30
-    image_path = "Assets/Thorns.png"
+    image_path = "Assets/Thorns Sprite.png"
     def __init__(self):
         self.description = "Thorns\nDeals damage to surrounding enemies\n when the player is damaged\n**SPACE to Select**"
         super().__init__()
@@ -39,7 +39,10 @@ class Thorns(Upgrade):
 class SweepingEdge(Upgrade):
     threshold = 100
     damage = 30
-    image_path = "Assets/Sweeping Edge.png"
+    image_path = "Assets/Sweeping Edge Sprite.png"
     def __init__(self):
         self.description = "Sweeping Edge\nDeals damage to surrounding\n enemies that get damaged\n**SPACE to Select**"
         super().__init__()
+
+class Healing(Upgrade):
+    image_path = "Assets/Health Pickup.png"
