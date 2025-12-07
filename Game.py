@@ -137,12 +137,27 @@ class Game:
         if len(self.upgrade_pickups) != 0:
             return None
         
-        self.win_wave_sound.play()
-        upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Healing())
-        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Necromancer())
+        possible_upgrades = [Thorns(), SweepingEdge(), Healing(), Speed(), Snowball_Upgrade(), Necromancer()]
+        for upgrade in self.upgrades:
+            if type(upgrade) == SweepingEdge:
+                for possible_upgrade in possible_upgrades:
+                    if type(possible_upgrade) == SweepingEdge:
+                        possible_upgrades.remove(possible_upgrade)
+            if type(upgrade) == Thorns:
+                for possible_upgrade in possible_upgrades:
+                    if type(possible_upgrade) == Thorns:
+                        possible_upgrades.remove(possible_upgrade)
+        
+        upgrade1 = possible_upgrades[random.randint(0, len(possible_upgrades)-1)]
+        possible_upgrades.remove(upgrade1)
+        upgrade2 = possible_upgrades[random.randint(0, len(possible_upgrades)-1)]
 
-        self.upgrade_pickups.append(upgrade1)
-        self.upgrade_pickups.append(upgrade2)
+        self.win_wave_sound.play()
+        pickup1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, upgrade1)
+        pickup2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, upgrade2)
+
+        self.upgrade_pickups.append(pickup1)
+        self.upgrade_pickups.append(pickup2)
 
     def game_over(self):
         pass
