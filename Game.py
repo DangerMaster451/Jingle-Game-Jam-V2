@@ -5,6 +5,7 @@ from Pickup import Pickup
 from Enemy import Enemy
 from Player import Player
 from Particles import Particle, Blood, IceBlood
+from GameObject import GameObject
 from Projectiles import Projectile, Snowball
 from Healthbar import Healthbar
 from Scorebar import Scorebar
@@ -120,7 +121,10 @@ class Game:
         else:
             self.player.animation_frames -= 1 * dt
 
-        if self.player.x > mouseX:
+        mouse = GameObject()
+        mouse.x = mouseX
+        mouse.y = mouseY
+        if self.player.x > mouseX and self.player.get_distance_to_object(mouse) > 15:
             self.player.image = pygame.transform.flip(self.player.frames[self.player.current_frame], True, False)
         else:
             self.player.image = self.player.frames[self.player.current_frame]
