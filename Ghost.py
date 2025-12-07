@@ -11,7 +11,7 @@ class Ghost(GameObject):
         self.x = x
         self.y = y
         self.target = target
-        self.speed = 130
+        self.speed = 175
         self.image = self.load_image("Assets/ghost.png", (60,60))
         
 

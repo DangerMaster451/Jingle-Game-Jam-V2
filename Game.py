@@ -147,10 +147,19 @@ class Game:
                 for possible_upgrade in possible_upgrades:
                     if type(possible_upgrade) == Thorns:
                         possible_upgrades.remove(possible_upgrade)
-        
-        upgrade1 = possible_upgrades[random.randint(0, len(possible_upgrades)-1)]
-        possible_upgrades.remove(upgrade1)
-        upgrade2 = possible_upgrades[random.randint(0, len(possible_upgrades)-1)]
+
+        if self.ghost_spawn_chance == 1:
+            for possible_upgrade in possible_upgrades:
+                if type(possible_upgrade) == Necromancer:
+                    possible_upgrades.remove(possible_upgrade)
+
+        if len(possible_upgrades) < 2:
+            upgrade1 = Healing()
+            upgrade2 = Healing()
+        else:
+            upgrade1 = possible_upgrades[random.randint(0, len(possible_upgrades)-1)]
+            possible_upgrades.remove(upgrade1)
+            upgrade2 = possible_upgrades[random.randint(0, len(possible_upgrades)-1)]
 
         self.win_wave_sound.play()
         pickup1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, upgrade1)
@@ -238,6 +247,7 @@ class Game:
                 self.ghosts.remove(ghost)
                 if ghost.target in self.enemies:
                     self.handle_enemy_damage(ghost.target, 1000)
+                    self.score += 3
 
         # Projectiles
         for projectile in self.projectiles:
@@ -264,7 +274,7 @@ class Game:
 
             if type(upgrade) == Snowball_Upgrade:
                 if type(self.upgrades[0]) == Default:
-                    self.upgrades[0].cool_down = 0.5 * self.upgrades[0].cool_down
+                    self.upgrades[0].cool_down = 0.8 * self.upgrades[0].cool_down
                     self.upgrades.remove(upgrade)   
 
             if type(upgrade) == Necromancer:
