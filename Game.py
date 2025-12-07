@@ -1,5 +1,5 @@
 from __future__ import annotations
-from Upgrade import Upgrade, Default, Thorns, SweepingEdge, Healing, Speed, Snowball_Upgrade
+from Upgrade import Upgrade, Default, Thorns, SweepingEdge, Healing, Speed, Snowball_Upgrade, Necromancer
 from UpgradePickup import UpgradePickup
 from Pickup import Pickup
 from Enemy import Enemy
@@ -23,7 +23,7 @@ class Game:
         self.projectiles:list[Projectile] = []
         self.pickups:list[Pickup] = []
         self.particles:list[Particle] = []
-        self.upgrades:list[Upgrade] = [Default(), Snowball_Upgrade()]
+        self.upgrades:list[Upgrade] = [Default()]
         self.upgrade_pickups:list[UpgradePickup] = []
         self.health_bars:list[Healthbar] = [self.player.healthbar]
         self.score_bar:Scorebar = Scorebar(screen_size)
@@ -139,7 +139,7 @@ class Game:
         
         self.win_wave_sound.play()
         upgrade1 = UpgradePickup(screen_size[0]/4, screen_size[1]/2, Healing())
-        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Snowball_Upgrade())
+        upgrade2 = UpgradePickup(screen_size[0]/4*3, screen_size[1]/2, Necromancer())
 
         self.upgrade_pickups.append(upgrade1)
         self.upgrade_pickups.append(upgrade2)
@@ -250,8 +250,14 @@ class Game:
             if type(upgrade) == Snowball_Upgrade:
                 if type(self.upgrades[0]) == Default:
                     self.upgrades[0].cool_down = 0.5 * self.upgrades[0].cool_down
-                    self.upgrades.remove(upgrade)            
+                    self.upgrades.remove(upgrade)   
 
+            if type(upgrade) == Necromancer:
+                if self.ghost_spawn_chance == 7:
+                    self.ghost_spawn_chance = 3
+                elif self.ghost_spawn_chance == 3:
+                    self.ghost_spawn_chance = 1
+                self.upgrades.remove(upgrade)
 
         # Upgrade Pickups
         self.handle_upgrade_spawning(window_size)

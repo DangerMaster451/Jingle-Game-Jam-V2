@@ -59,5 +59,10 @@ class Speed(Upgrade):
 class Snowball_Upgrade(Upgrade):
     image_path = "Assets/More Snowballs.png"
     def __init__(self):
-        self.description = "Snowball Upgrade\nIncreases number of snowballs thrown by 50%\n**Space to Select**"
+        self.description = "Snowball Upgrade\nIncreases number of snowballs thrown by 50%\n**SPACE to Select**"
         super().__init__()
+
+class Necromancer(Upgrade):
+    image_path = "Assets/Necromancer Sprite.png"
+    def __init__(self):
+        self.description = "Necromancer\nIncreases the probability a ghost will spawn\n**SPACE to Select**"
